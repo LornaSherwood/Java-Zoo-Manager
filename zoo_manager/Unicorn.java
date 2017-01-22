@@ -2,9 +2,9 @@ package zoo_manager;
 import behaviours.*;
 import java.util.*;
 
-public class Unicorn extends Animal{
+public class Unicorn extends Animal implements Runner{
 
-  private ArrayList<Edible> foodEaten;
+  public ArrayList<Edible> foodEaten;
 
   public Unicorn(String name, char gender, int spaceValue, int offspringValue, String diet) {
 
@@ -12,5 +12,19 @@ public class Unicorn extends Animal{
     this.foodEaten = new ArrayList<Edible>();
 
   }
+
+  public String run() {
+    return "Trots gracefully across the ground";
+  }
+
+  public int countFood(){
+    return foodEaten.size();
+  }
+
+  public void eatFood(Edible food){
+    foodEaten.add(food);
+  }
+
+
 
 }
