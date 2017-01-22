@@ -11,7 +11,7 @@ public class UnicornTest {
 
   @Before
   public void before(){
-    unicorn = new Unicorn("Pointy", 'F', 5, 1, "vegetarian"); 
+    unicorn = new Unicorn("Pointy", 'F', 5, 1, "vegetarian", "forest"); 
     food = new Food("forbs", "vegetarian");
     
   }
@@ -39,6 +39,11 @@ public class UnicornTest {
   @Test
   public void canGetDiet() {
     assertEquals("vegetarian", unicorn.getDiet());
+  }
+
+  @Test
+  public void canGetEnclosureType(){
+    assertEquals("forest", unicorn.getEnclosureType());
   }
   //end of testing inheritience
 

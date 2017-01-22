@@ -6,17 +6,19 @@ import java.util.*;
 public class ManagerTest {
   Manager manager;
   Unicorn unicorn;
-  Food forbs;  
+  Food forbs;
+  Enclosure enclosure;  
 
   @Before
   public void before(){
     manager = new Manager();
-    unicorn = new Unicorn("Pointy", 'F', 5, 1, "vegetarian"); 
+    unicorn = new Unicorn("Pointy", 'F', 5, 1, "vegetarian", "forest"); 
     forbs = new Food("forbs", "vegetarian");
+    enclosure = new Enclosure("Soaring Heights", "Aerial", 100);
   }
 
   @Test 
-  public void runnersStartEmpty(){
+  public void animalsStartEmpty(){
     assertEquals(0, manager.countAnimals());
   }
 
@@ -44,6 +46,27 @@ public class ManagerTest {
     manager.feedAnimal(unicorn, forbs);
     assertEquals(1, unicorn.countFood());
   }
+
+  @Test
+  public void enclosuresStartEmpty(){
+    assertEquals(0, manager.countEnclosures());
+  }
+
+  @Test
+  public void canGetEnclosure(){
+    manager.getEnclosure(enclosure);
+    assertEquals(1, manager.countEnclosures());
+  }
+
+  // @Test
+  // public void canAddAnimaltoEnclosure(){
+  //   manager.getAnimal(unicorn);
+  //   manager.getEnclosure(enclosure);
+  //   manager.addAnimalToEnclosure(unicorn, enclosure);
+  //   assertEquals(0, manager.countAnimals());
+  //   assertEquals(1, enclosure.countAnimals());
+
+  // }
 
   
 

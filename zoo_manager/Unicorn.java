@@ -6,9 +6,9 @@ public class Unicorn extends Animal implements Livable{
 
   public ArrayList<Edible> foodEaten;
 
-  public Unicorn(String name, char gender, int spaceValue, int offspringValue, String diet) {
+  public Unicorn(String name, char gender, int spaceValue, int offspringValue, String diet, String enclosureType) {
 
-    super(name, gender, spaceValue, offspringValue, diet);
+    super(name, gender, spaceValue, offspringValue, diet, enclosureType);
     this.foodEaten = new ArrayList<Edible>();
 
   }

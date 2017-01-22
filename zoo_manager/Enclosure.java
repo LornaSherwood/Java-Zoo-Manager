@@ -2,7 +2,7 @@ package zoo_manager;
 import behaviours.*;
 import java.util.*;
 
-public class Enclosure {
+public class Enclosure implements Exhibitable{
   private String name;
   private String environment;
   private int maxSpaceValue;
@@ -14,7 +14,7 @@ public class Enclosure {
     this.name = name;
     this.environment = environment;
     this.maxSpaceValue = maxSpaceValue;
-    animals = new ArrayList<Livable>();
+    this.animals = new ArrayList<Livable>();
   }
 
   public String getName(){
@@ -27,6 +27,22 @@ public class Enclosure {
 
   public int getMaxSpaceValue(){
     return this.maxSpaceValue;
+  }
+
+  public int countAnimals(){
+    return animals.size();
+  }
+
+  public void addAnimal(Livable animal){
+    animals.add(animal);
+  }
+
+  public int getSpareCapacity(){
+    int i = 0;
+    for (Livable animal : animals){
+      i += animal.getSpaceValue();
+    }
+    return this.maxSpaceValue - i;
   }
 
 }

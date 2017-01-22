@@ -5,12 +5,14 @@ import java.util.*;
 public class Manager {
   private ArrayList<Livable> animals;
   private ArrayList<Edible> foods;
+  private ArrayList<Exhibitable> enclosures;
 
 
   public Manager(){
     
     animals = new ArrayList<Livable>();
     foods = new ArrayList<Edible>();
+    enclosures = new ArrayList<Exhibitable>();
   }
 
   public int countAnimals(){
@@ -41,6 +43,24 @@ public class Manager {
     }
   }
 
+  public int countEnclosures(){
+    return enclosures.size();
+  }
 
+  public void getEnclosure(Enclosure enclosure){
+    enclosures.add(enclosure);
+  }
 
+//   public void addAnimalToEnclosure(Livable animal, Exhibitable enclosure){
+
+//   }
+
+// get animal env
+// get enclosure env
+// if animal value + animals total values !> encl value
+//   if env == env
+//     remove animal from manager, add to enclosure
+//   else
+//     message "can't add"  or delete animal "animal drowned"
+// else message "enclosure is full"
 }
