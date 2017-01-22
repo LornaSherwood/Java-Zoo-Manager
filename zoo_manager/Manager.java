@@ -19,9 +19,10 @@ public class Manager {
     return animals.size();
   }
 
-  public void getAnimal(Livable animal){
+  public void addAnimal(Livable animal){
     animals.add(animal);
   }
+
 
   public int countFood(){
     return foods.size();
@@ -51,16 +52,21 @@ public class Manager {
     enclosures.add(enclosure);
   }
 
-//   public void addAnimalToEnclosure(Livable animal, Exhibitable enclosure){
+  public String addAnimalToEnclosure(Livable animal, Exhibitable enclosure){
+    String animalEnclosure = animal.getEnclosureType();
+    String enclosureEnvironment = enclosure.getEnvironment();
+    if (animal.getSpaceValue() <= enclosure.getSpareCapacity()){
+      if (animalEnclosure == enclosureEnvironment){
+          int position = animals.indexOf(animal);
+          Livable animalToAdd = animals.remove(position);
+          enclosure.addAnimal(animalToAdd);
+          return animalToAdd.getName() + "has been added";
+      }
+      else
+        return animal.getName() + " is not suited to that enclosure";
+    }
+    else
+      return "There is not enough space to add " + animal.getName();
+  }
 
-//   }
-
-// get animal env
-// get enclosure env
-// if animal value + animals total values !> encl value
-//   if env == env
-//     remove animal from manager, add to enclosure
-//   else
-//     message "can't add"  or delete animal "animal drowned"
-// else message "enclosure is full"
 }
