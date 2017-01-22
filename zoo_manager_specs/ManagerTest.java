@@ -17,13 +17,13 @@ public class ManagerTest {
 
   @Test 
   public void runnersStartEmpty(){
-    assertEquals(0, manager.countRunners());
+    assertEquals(0, manager.countAnimals());
   }
 
   @Test
-  public void canGetRunner(){
-    manager.getRunner(unicorn);
-    assertEquals(1, manager.countRunners());
+  public void canGetAnimal(){
+    manager.getAnimal(unicorn);
+    assertEquals(1, manager.countAnimals());
   }
 
   @Test
@@ -38,10 +38,10 @@ public class ManagerTest {
   }
 
   @Test
-  public void canFeedRunner(){
-    manager.getRunner(unicorn);
+  public void canFeedAnimal(){
+    manager.getAnimal(unicorn);
     manager.getFood(forbs);
-    manager.feedRunner(unicorn, forbs);
+    manager.feedAnimal(unicorn, forbs);
     assertEquals(1, unicorn.countFood());
   }
 

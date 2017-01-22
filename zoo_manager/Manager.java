@@ -3,22 +3,22 @@ import behaviours.*;
 import java.util.*;
 
 public class Manager {
-  private ArrayList<Runner> runners;
+  private ArrayList<Livable> animals;
   private ArrayList<Edible> foods;
 
 
   public Manager(){
     
-    runners = new ArrayList<Runner>();
+    animals = new ArrayList<Livable>();
     foods = new ArrayList<Edible>();
   }
 
-  public int countRunners(){
-    return runners.size();
+  public int countAnimals(){
+    return animals.size();
   }
 
-  public void getRunner(Runner runner){
-    runners.add(runner);
+  public void getAnimal(Livable animal){
+    animals.add(animal);
   }
 
   public int countFood(){
@@ -29,13 +29,13 @@ public class Manager {
     foods.add(food);
   }
 
-  public void feedRunner(Runner runner, Edible forbs){
+  public void feedAnimal(Livable animal, Edible forbs){
     
-    String diet = runner.getDiet(); //get diet of runner
+    String diet = animal.getDiet(); //get diet of animal
     String category = forbs.getCategory();
     for (Edible food : foods){
       if (category == diet){ //if vege food == vege diet
-        runner.eatFood(forbs); //give food to runner
+        animal.eatFood(forbs); //give food to animal
         return;
       }
     }

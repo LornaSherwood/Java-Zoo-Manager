@@ -2,7 +2,7 @@ package zoo_manager;
 import behaviours.*;
 import java.util.*;
 
-public class Unicorn extends Animal implements Runner{
+public class Unicorn extends Animal implements Livable{
 
   public ArrayList<Edible> foodEaten;
 

@@ -1,7 +1,7 @@
 package behaviours;
 import java.util.*;
 
-public interface Runner {
+public interface Livable {
 
   String getDiet();
   void eatFood(Edible food);
