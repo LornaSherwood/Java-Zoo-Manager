@@ -4,19 +4,19 @@ import behaviours.*;
 
 public class Food implements Edible{
   private String name;
-  private String category;
+  private Diet diet;
 
-  public Food(String name, String category){
+  public Food(String name, Diet diet){
     this.name = name;
-    this.category = category;
+    this.diet = diet;
   }
 
   public String getName(){
     return this.name;
   }
 
-  public String getCategory(){
-    return this.category;
+  public Diet getDiet(){
+    return this.diet;
   }
 
 

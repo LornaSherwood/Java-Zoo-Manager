@@ -10,7 +10,7 @@ public class FoodTest {
 
   @Before
   public void before(){
-    food = new Food("forbs", "vegetarian"); 
+    food = new Food("forbs", Diet.VEGETARIAN); 
   }
 
   @Test
@@ -19,8 +19,8 @@ public class FoodTest {
   }
 
   @Test
-  public void canGetCategory(){
-    assertEquals("vegetarian", food.getCategory());
+  public void canGetDiet(){
+    assertEquals(Diet.VEGETARIAN, food.getDiet());
   }
 
 }

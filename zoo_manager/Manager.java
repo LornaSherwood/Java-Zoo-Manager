@@ -29,6 +29,10 @@ public class Manager{
     foods.add(food);
   }
 
+  public void removeFood(Edible food){
+    foods.remove(food);
+  }
+
   public int countEnclosures(){
     return enclosures.size();
   }
@@ -38,8 +42,8 @@ public class Manager{
   }
 
   public String addAnimalToEnclosure(Livable animal, Exhibitable enclosure){
-    String animalEnclosure = animal.getEnclosureType();
-    String enclosureEnvironment = enclosure.getEnvironment();
+    EnclosureType animalEnclosure = animal.getEnclosureType();
+    EnclosureType enclosureEnvironment = enclosure.getEnvironment();
     if (animal.getSpaceValue() <= enclosure.getSpareCapacity()){
       if (animalEnclosure == enclosureEnvironment){
           int position = animals.indexOf(animal);
@@ -66,10 +70,11 @@ public class Manager{
   }
 
   public String feedAnimal(Livable animal){
-    String diet = animal.getDiet(); //get diet of animal
+    Diet diet = animal.getDiet(); //get diet of animal
     for (Edible food : foods){
-        if (food.getCategory() == diet || diet == "omnivore"){ //if vege food == vege diet
+        if (food.getDiet() == diet || diet == Diet.OMNIVORE){ //if vege food == vege diet or omnivore
           animal.eatFood(food); //give food to animal
+          removeFood(food); //remove food from manager
           return animal.getName() + "has been fed";
         }
     }
@@ -78,11 +83,12 @@ public class Manager{
 
   public ArrayList<String> feedAllAnimalsInEnclosure(Exhibitable enclosure){
     ArrayList<String> results = new ArrayList<String>(); //create array list
-    for (Livable animal : enclosure.getAnimals()){ //for each animal in the enclosure
-      String feedMessage = feedAnimal(animal); //get result of feeding
-      results.add(feedMessage); //add result to array list
-    }
-    return results;
+      for (Livable animal : enclosure.getAnimals()){ //for each animal in the enclosure
+        String feedMessage = feedAnimal(animal); //get result of feeding
+        results.add(feedMessage); //add result to array list
+        // remove from manager array
+      }
+      return results;
   }
 
   public void getEnclosureFeedingResults(Exhibitable enclosure){

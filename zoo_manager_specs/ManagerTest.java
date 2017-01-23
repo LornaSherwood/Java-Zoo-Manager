@@ -7,24 +7,32 @@ public class ManagerTest {
   Manager manager;
   Unicorn unicorn;
   Unicorn unicorn2;
+  Kelpie kelpie;
+  Kelpie kelpie2;
   Food forbs;
+  Food nutRoast;
   Food fairies;
   Enclosure enclosure;
   Enclosure enclosure2;
   Enclosure enclosure3;
   Enclosure enclosure4;
+  Enclosure enclosure5;
 
   @Before
   public void before(){
     manager = new Manager();
-    unicorn = new Unicorn("Pointy", 'F', 5, 1, "vegetarian", "forest"); 
-    unicorn2 = new Unicorn("Blunty", 'M', 6, 0, "vegetarian", "forest");
-    forbs = new Food("forbs", "vegetarian");
-    fairies = new Food("fairies", "meat");
-    enclosure = new Enclosure("Magic Glade", "forest", 100);
-    enclosure2 = new Enclosure("Soaring Heights", "aerial", 100);
-    enclosure3 = new Enclosure("Magic Glade", "forest", 4);
-    enclosure4 = new Enclosure("Magic Glade", "forest", 100);
+    unicorn = new Unicorn("Pointy", Gender.F, 5, 1, Diet.VEGETARIAN, EnclosureType.FOREST); 
+    unicorn2 = new Unicorn("Blunty", Gender.M, 6, 0, Diet.VEGETARIAN, EnclosureType.FOREST);
+    kelpie = new Kelpie("Vaila", Gender.F, 10, 2, Diet.OMNIVORE, EnclosureType.WATER);
+    kelpie2 = new Kelpie("Veila", Gender.M, 10, 0, Diet.OMNIVORE, EnclosureType.WATER);
+    forbs = new Food("forbs", Diet.VEGETARIAN);
+    nutRoast = new Food("nutRoast", Diet.VEGETARIAN);
+    fairies = new Food("fairies", Diet.CARNIVORE);
+    enclosure = new Enclosure("Magic Glade", EnclosureType.FOREST, 100);
+    enclosure2 = new Enclosure("Soaring Heights", EnclosureType.AERIAL, 100);
+    enclosure3 = new Enclosure("Magic Glade", EnclosureType.FOREST, 4);
+    enclosure4 = new Enclosure("Magic Glade", EnclosureType.FOREST, 100);
+    enclosure5 = new Enclosure("Dark Depths", EnclosureType.WATER, 100);
   }
 
   @Test 
@@ -50,6 +58,13 @@ public class ManagerTest {
   }
 
   @Test
+  public void canRemoveFood(){
+    manager.getFood(forbs);
+    manager.removeFood(forbs);
+    assertEquals(0, manager.countFood());
+  }
+
+  @Test
   public void enclosuresStartEmpty(){
     assertEquals(0, manager.countEnclosures());
   }
@@ -61,13 +76,14 @@ public class ManagerTest {
   }
 
   @Test
-  public void canAddAnimaltoRightEnclosure(){
+  public void canAddAnimaltoRightEnclosureUnicorn(){
     manager.addAnimal(unicorn);
     manager.getEnclosure(enclosure);
     manager.addAnimalToEnclosure(unicorn, enclosure);
     assertEquals(0, manager.countAnimals());
     assertEquals(1, enclosure.countAnimals());
   }
+
 
   public void canAddAnimaltoRightEnclosureMessage(){
     manager.addAnimal(unicorn);
@@ -77,10 +93,28 @@ public class ManagerTest {
   }
 
   @Test 
-  public void cannotAddAnimalToWrongEnclosure(){
+  public void cannotAddAnimalToWrongEnclosureUnicorn(){
     manager.addAnimal(unicorn);
     manager.getEnclosure(enclosure2);
     manager.addAnimalToEnclosure(unicorn, enclosure2);
+    assertEquals(1, manager.countAnimals());
+    assertEquals(0, enclosure2.countAnimals());
+  }
+
+  @Test
+  public void canAddAnimaltoRightEnclosureKelpie(){
+    manager.addAnimal(kelpie);
+    manager.getEnclosure(enclosure5);
+    manager.addAnimalToEnclosure(kelpie, enclosure5);
+    assertEquals(0, manager.countAnimals());
+    assertEquals(1, enclosure5.countAnimals());
+  }
+
+  @Test 
+  public void cannotAddAnimalToWrongEnclosureKelpie(){
+    manager.addAnimal(kelpie);
+    manager.getEnclosure(enclosure2);
+    manager.addAnimalToEnclosure(kelpie, enclosure2);
     assertEquals(1, manager.countAnimals());
     assertEquals(0, enclosure2.countAnimals());
   }
@@ -162,19 +196,68 @@ public class ManagerTest {
     assertEquals(0, unicorn.countFood());
   }
 
+  // @Test //not telling us anything, feeding regardless of if in enclosure
+  // public void canFeedAnimalInEnclosureVegetarian(){  
+  //   manager.addAnimal(unicorn);
+  //   manager.getEnclosure(enclosure);
+  //   manager.addAnimalToEnclosure(unicorn, enclosure);
+  //   manager.getFood(forbs);
+  //   manager.getFood(fairies);
+  //   manager.feedAnimal(unicorn);
+  //   assertEquals(1, unicorn.countFood());
+  // }
+
+  // @Test
+  // public void canFeedAnimalInEnclosureOmnivore(){
+  //   manager.addAnimal(kelpie);
+  //   manager.getEnclosure(enclosure);
+  //   manager.addAnimalToEnclosure(kelpie, enclosure);
+  //   manager.getFood(fairies);
+  //   manager.feedAnimal(kelpie);
+  //   assertEquals(1, kelpie.countFood());
+  // }
+
   @Test
-  public void canFeedAnimalInEnclosure(){
+  public void canFeedAnimalInEnclosureOneItem(){
     manager.addAnimal(unicorn);
     manager.getEnclosure(enclosure);
     manager.addAnimalToEnclosure(unicorn, enclosure);
     manager.getFood(forbs);
-    manager.getFood(fairies);
+    manager.getFood(nutRoast);
     manager.feedAnimal(unicorn);
     assertEquals(1, unicorn.countFood());
+  }
 
 
+  @Test
+  public void canFeedAllAnimalsInEnclosureVegetarian(){
+    manager.addAnimal(unicorn);
+    manager.addAnimal(unicorn2);
+    manager.getEnclosure(enclosure);
+    manager.addAnimalToEnclosure(unicorn, enclosure);
+    manager.addAnimalToEnclosure(unicorn2, enclosure);
+    manager.getFood(forbs);
+    manager.getFood(forbs);
+    manager.feedAllAnimalsInEnclosure(enclosure);
+    assertEquals(1, unicorn.countFood());
+    assertEquals(1, unicorn2.countFood());
+    assertEquals(0, manager.countFood());
 
+  }
 
+  @Test
+  public void canFeedAllAnimalsInEnclosureOmnivore(){
+    manager.addAnimal(kelpie);
+    manager.addAnimal(kelpie2);
+    manager.getEnclosure(enclosure5);
+    manager.addAnimalToEnclosure(kelpie, enclosure5);
+    manager.addAnimalToEnclosure(kelpie2, enclosure5);
+    manager.getFood(nutRoast);
+    manager.getFood(fairies);
+    manager.feedAllAnimalsInEnclosure(enclosure5);
+    assertEquals(1, kelpie.countFood());
+    assertEquals(1, kelpie2.countFood());
+    assertEquals(0, manager.countFood());
   }
 
   

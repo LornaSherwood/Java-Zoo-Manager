@@ -1,16 +1,18 @@
 package zoo_manager;
 import behaviours.*;
+import java.util.*;
 
 public abstract class Animal {
 
   private String name;
-  private char gender;
+  private Gender gender;
   private int spaceValue;
   private int offspringValue;
-  private String diet;
-  private String enclosureType;
+  private Diet diet;
+  private EnclosureType enclosureType;
+  public ArrayList<Edible> foodEaten;
 
-  public Animal(String name, char gender, int spaceValue, int offspringValue, String diet, String enclosureType){
+  public Animal(String name, Gender gender, int spaceValue, int offspringValue, Diet diet, EnclosureType enclosureType){
 
   this.name = name;
   this.gender = gender;
@@ -18,13 +20,14 @@ public abstract class Animal {
   this.offspringValue = offspringValue;
   this.diet = diet;
   this.enclosureType = enclosureType;
+  this.foodEaten = new ArrayList<Edible>();
   }
 
   public String getName(){
     return this.name;
   }
 
-  public char getGender(){
+  public Gender getGender(){
     return this.gender;
   }
 
@@ -36,12 +39,20 @@ public abstract class Animal {
     return this.offspringValue;
   }
 
-  public String getDiet(){
+  public Diet getDiet(){
     return this.diet;
   }
 
-  public String getEnclosureType(){
+  public EnclosureType getEnclosureType(){
     return this.enclosureType;
+  }
+
+  public int countFood(){
+    return foodEaten.size();
+  }
+
+  public void eatFood(Edible food){
+    foodEaten.add(food);
   }
 
 }

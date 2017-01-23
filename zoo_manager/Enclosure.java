@@ -4,13 +4,13 @@ import java.util.*;
 
 public class Enclosure implements Exhibitable{
   private String name;
-  private String environment;
+  private EnclosureType environment;
   private int maxSpaceValue;
 
   private ArrayList<Livable> animals;
 
 
-  public Enclosure(String name, String environment, int maxSpaceValue){
+  public Enclosure(String name, EnclosureType environment, int maxSpaceValue){
     this.name = name;
     this.environment = environment;
     this.maxSpaceValue = maxSpaceValue;
@@ -21,7 +21,7 @@ public class Enclosure implements Exhibitable{
     return this.name;
   }
 
-  public String getEnvironment(){
+  public EnclosureType getEnvironment(){
     return this.environment;
   }
 

@@ -1,9 +1,10 @@
 package behaviours;
 import java.util.*;
+import zoo_manager.*;
 
 public interface Edible {
 
-String getCategory();
+  Diet getDiet();
 
 
 }

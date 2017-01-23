@@ -1,12 +1,13 @@
 package behaviours;
+import zoo_manager.*;
 import java.util.*;
 
 public interface Livable {
 
-  String getDiet();
+  Diet getDiet();
   void eatFood(Edible food);
   int getSpaceValue();
-  String getEnclosureType();
+  EnclosureType getEnclosureType();
   String getName();
 
 

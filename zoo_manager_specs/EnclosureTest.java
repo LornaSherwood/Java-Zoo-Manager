@@ -16,10 +16,10 @@ public class EnclosureTest {
 
   @Before
   public void before(){
-    enclosure = new Enclosure("Soaring Heights", "Aerial", 100);
-    enclosure2 = new Enclosure("Magic Glade", "Land", 30);
-    unicorn = new Unicorn("Pointy", 'F', 5, 1, "vegetarian", "forest");
-    unicorn2 = new Unicorn("Blunty", 'M', 6, 0, "vegetarian", "forest");
+    enclosure = new Enclosure("Soaring Heights", EnclosureType.AERIAL, 100);
+    enclosure2 = new Enclosure("Magic Glade", EnclosureType.FOREST, 30);
+    unicorn = new Unicorn("Pointy", Gender.F, 5, 1, Diet.VEGETARIAN, EnclosureType.FOREST);
+    unicorn2 = new Unicorn("Blunty", Gender.M, 6, 0, Diet.VEGETARIAN, EnclosureType.FOREST);
   }
 
   @Test
@@ -29,7 +29,7 @@ public class EnclosureTest {
 
   @Test
   public void canGetEnvironment(){
-    assertEquals("Aerial", enclosure.getEnvironment());
+    assertEquals(EnclosureType.AERIAL, enclosure.getEnvironment());
   }
 
   @Test

@@ -1,10 +1,11 @@
 package behaviours;
+import zoo_manager.*;
 import java.util.*;
 
 public interface Exhibitable {
 
   int getSpareCapacity();
-  String getEnvironment();
+  EnclosureType getEnvironment();
   void addAnimal(Livable animal);
   ArrayList<Livable> getAnimals();
 
