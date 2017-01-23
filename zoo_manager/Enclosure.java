@@ -29,6 +29,10 @@ public class Enclosure implements Exhibitable{
     return this.maxSpaceValue;
   }
 
+  public ArrayList<Livable> getAnimals(){
+    return this.animals;
+  }
+
   public int countAnimals(){
     return animals.size();
   }
