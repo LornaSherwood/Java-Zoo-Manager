@@ -9,6 +9,10 @@ public interface Livable {
   int getSpaceValue();
   EnclosureType getEnclosureType();
   String getName();
+  boolean eatFoodIfMatchesDiet(Edible food);
+  int chanceOfGettingSick();
+  void getSick();
+  HealthStatus getHealthStatus();
 
 
 }

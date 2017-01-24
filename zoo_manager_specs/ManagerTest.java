@@ -2,6 +2,8 @@ import static org.junit.Assert.*;
 import org.junit.*;
 import zoo_manager.*;
 import java.util.*;
+import org.mockito.*;
+import static org.mockito.Mockito.*;
 
 public class ManagerTest {
   Manager manager;
@@ -17,14 +19,18 @@ public class ManagerTest {
   Enclosure enclosure3;
   Enclosure enclosure4;
   Enclosure enclosure5;
+  Random stubRandom;
 
   @Before
   public void before(){
+    
+    stubRandom = mock(Random.class);
     manager = new Manager();
-    unicorn = new Unicorn("Pointy", Gender.F, 5, 1, Diet.VEGETARIAN, EnclosureType.FOREST); 
-    unicorn2 = new Unicorn("Blunty", Gender.M, 6, 0, Diet.VEGETARIAN, EnclosureType.FOREST);
-    kelpie = new Kelpie("Vaila", Gender.F, 10, 2, Diet.OMNIVORE, EnclosureType.WATER);
-    kelpie2 = new Kelpie("Veila", Gender.M, 10, 0, Diet.OMNIVORE, EnclosureType.WATER);
+    
+    unicorn = new Unicorn("Pointy", Gender.F, 5, 1, Diet.VEGETARIAN, EnclosureType.FOREST, HealthStatus.HEALTHY, stubRandom); 
+    unicorn2 = new Unicorn("Blunty", Gender.M, 6, 0, Diet.VEGETARIAN, EnclosureType.FOREST, HealthStatus.HEALTHY, stubRandom);
+    kelpie = new Kelpie("Vaila", Gender.F, 10, 2, Diet.OMNIVORE, EnclosureType.WATER, HealthStatus.HEALTHY);
+    kelpie2 = new Kelpie("Veila", Gender.M, 10, 0, Diet.OMNIVORE, EnclosureType.WATER, HealthStatus.HEALTHY);
     forbs = new Food("forbs", Diet.VEGETARIAN);
     nutRoast = new Food("nutRoast", Diet.VEGETARIAN);
     fairies = new Food("fairies", Diet.CARNIVORE);
@@ -260,5 +266,28 @@ public class ManagerTest {
     assertEquals(0, manager.countFood());
   }
 
+  @Test
+  public void canCheckForSickAnimalsHealthy(){
+    when(stubRandom.nextInt(10)).thenReturn(1); // mockito
+    manager.addAnimal(unicorn);
+    manager.addAnimal(unicorn2);
+    manager.getEnclosure(enclosure);
+    manager.addAnimalToEnclosure(unicorn, enclosure);
+    manager.addAnimalToEnclosure(unicorn2, enclosure);
+    int numberSick = manager.checkForSickAnimals(enclosure);
+    assertEquals(0, numberSick);
+  }
+
+  @Test
+  public void canCheckForSickAnimalsSick(){
+    when(stubRandom.nextInt(10)).thenReturn(8); // mockito
+    manager.addAnimal(unicorn);
+    manager.addAnimal(unicorn2);
+    manager.getEnclosure(enclosure);
+    manager.addAnimalToEnclosure(unicorn, enclosure);
+    manager.addAnimalToEnclosure(unicorn2, enclosure);
+    int numberSick = manager.checkForSickAnimals(enclosure);
+    assertEquals(2, numberSick);
+  }
   
 }

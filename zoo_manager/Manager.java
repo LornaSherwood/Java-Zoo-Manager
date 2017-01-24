@@ -6,11 +6,20 @@ public class Manager{
   private ArrayList<Livable> animals;
   private ArrayList<Edible> foods;
   private ArrayList<Exhibitable> enclosures;
+  private Random randomGenerator;
 
   public Manager(){
     animals = new ArrayList<Livable>();
     foods = new ArrayList<Edible>();
     enclosures = new ArrayList<Exhibitable>();
+    this.randomGenerator = new Random();
+  }
+
+  public Manager(Random randomGenerator){
+    animals = new ArrayList<Livable>();
+    foods = new ArrayList<Edible>();
+    enclosures = new ArrayList<Exhibitable>();
+    this.randomGenerator = randomGenerator;
   }
 
   public int countAnimals(){
@@ -70,10 +79,9 @@ public class Manager{
   }
 
   public String feedAnimal(Livable animal){
-    Diet diet = animal.getDiet(); //get diet of animal
+    //Diet diet = animal.getDiet(); //get diet of animal
     for (Edible food : foods){
-        if (food.getDiet() == diet || diet == Diet.OMNIVORE){ //if vege food == vege diet or omnivore
-          animal.eatFood(food); //give food to animal
+        if (animal.eatFoodIfMatchesDiet(food) == true){ //animal checks right diet and eat it
           removeFood(food); //remove food from manager
           return animal.getName() + "has been fed";
         }
@@ -96,6 +104,17 @@ public class Manager{
     for (String message : results){
       System.out.println(message); 
     }
+  }
+
+  public int checkForSickAnimals(Exhibitable enclosure){
+    int sickAnimals = 0;
+    for (Livable animal : enclosure.getAnimals()){
+      animal.getSick();
+      if (animal.getHealthStatus() == HealthStatus.SICK){
+        sickAnimals += 1;
+      }
+    }
+    return sickAnimals;
   }
 
   

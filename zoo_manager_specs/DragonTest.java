@@ -9,7 +9,7 @@ public class DragonTest {
 
   @Before
   public void before(){
-    dragon = new Dragon("Puff", Gender.F, 50, 4, Diet.CARNIVORE, EnclosureType.AERIAL);  
+    dragon = new Dragon("Puff", Gender.F, 50, 4, Diet.CARNIVORE, EnclosureType.AERIAL, HealthStatus.HEALTHY);  
   }
 
   @Test

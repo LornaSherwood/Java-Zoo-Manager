@@ -18,8 +18,8 @@ public class EnclosureTest {
   public void before(){
     enclosure = new Enclosure("Soaring Heights", EnclosureType.AERIAL, 100);
     enclosure2 = new Enclosure("Magic Glade", EnclosureType.FOREST, 30);
-    unicorn = new Unicorn("Pointy", Gender.F, 5, 1, Diet.VEGETARIAN, EnclosureType.FOREST);
-    unicorn2 = new Unicorn("Blunty", Gender.M, 6, 0, Diet.VEGETARIAN, EnclosureType.FOREST);
+    unicorn = new Unicorn("Pointy", Gender.F, 5, 1, Diet.VEGETARIAN, EnclosureType.FOREST, HealthStatus.HEALTHY);
+    unicorn2 = new Unicorn("Blunty", Gender.M, 6, 0, Diet.VEGETARIAN, EnclosureType.FOREST, HealthStatus.HEALTHY);
   }
 
   @Test

@@ -9,7 +9,7 @@ public class KelpieTest {
 
   @Before
   public void before(){
-    kelpie = new Kelpie("Vaila", Gender.F, 10, 2, Diet.OMNIVORE, EnclosureType.WATER);  
+    kelpie = new Kelpie("Vaila", Gender.F, 10, 2, Diet.OMNIVORE, EnclosureType.WATER, HealthStatus.HEALTHY);  
   }
 
   @Test

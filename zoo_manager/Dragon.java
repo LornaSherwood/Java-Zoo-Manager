@@ -4,9 +4,9 @@ import java.util.*;
 
 public class Dragon extends Animal implements Livable{
 
-  public Dragon(String name, Gender gender, int spaceValue, int offspringValue, Diet diet, EnclosureType enclosureType) {
+  public Dragon(String name, Gender gender, int spaceValue, int offspringValue, Diet diet, EnclosureType enclosureType, HealthStatus healthStatus) {
 
-    super(name, gender, spaceValue, offspringValue, diet, enclosureType);
+    super(name, gender, spaceValue, offspringValue, diet, enclosureType, healthStatus);
   }
 
   public String fly() {
