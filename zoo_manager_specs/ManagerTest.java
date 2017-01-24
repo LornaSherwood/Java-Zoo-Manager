@@ -9,6 +9,7 @@ public class ManagerTest {
   Manager manager;
   Unicorn unicorn;
   Unicorn unicorn2;
+  Unicorn unicornSick;
   Kelpie kelpie;
   Kelpie kelpie2;
   Food forbs;
@@ -26,9 +27,9 @@ public class ManagerTest {
     
     stubRandom = mock(Random.class);
     manager = new Manager();
-    
     unicorn = new Unicorn("Pointy", Gender.F, 5, 1, Diet.VEGETARIAN, EnclosureType.FOREST, HealthStatus.HEALTHY, stubRandom); 
     unicorn2 = new Unicorn("Blunty", Gender.M, 6, 0, Diet.VEGETARIAN, EnclosureType.FOREST, HealthStatus.HEALTHY, stubRandom);
+    unicornSick = new Unicorn("Blunty", Gender.M, 6, 0, Diet.VEGETARIAN, EnclosureType.FOREST, HealthStatus.SICK);
     kelpie = new Kelpie("Vaila", Gender.F, 10, 2, Diet.OMNIVORE, EnclosureType.WATER, HealthStatus.HEALTHY);
     kelpie2 = new Kelpie("Veila", Gender.M, 10, 0, Diet.OMNIVORE, EnclosureType.WATER, HealthStatus.HEALTHY);
     forbs = new Food("forbs", Diet.VEGETARIAN);
@@ -202,27 +203,6 @@ public class ManagerTest {
     assertEquals(0, unicorn.countFood());
   }
 
-  // @Test //not telling us anything, feeding regardless of if in enclosure
-  // public void canFeedAnimalInEnclosureVegetarian(){  
-  //   manager.addAnimal(unicorn);
-  //   manager.getEnclosure(enclosure);
-  //   manager.addAnimalToEnclosure(unicorn, enclosure);
-  //   manager.getFood(forbs);
-  //   manager.getFood(fairies);
-  //   manager.feedAnimal(unicorn);
-  //   assertEquals(1, unicorn.countFood());
-  // }
-
-  // @Test
-  // public void canFeedAnimalInEnclosureOmnivore(){
-  //   manager.addAnimal(kelpie);
-  //   manager.getEnclosure(enclosure);
-  //   manager.addAnimalToEnclosure(kelpie, enclosure);
-  //   manager.getFood(fairies);
-  //   manager.feedAnimal(kelpie);
-  //   assertEquals(1, kelpie.countFood());
-  // }
-
   @Test
   public void canFeedAnimalInEnclosureOneItem(){
     manager.addAnimal(unicorn);
@@ -233,7 +213,6 @@ public class ManagerTest {
     manager.feedAnimal(unicorn);
     assertEquals(1, unicorn.countFood());
   }
-
 
   @Test
   public void canFeedAllAnimalsInEnclosureVegetarian(){
@@ -248,7 +227,6 @@ public class ManagerTest {
     assertEquals(1, unicorn.countFood());
     assertEquals(1, unicorn2.countFood());
     assertEquals(0, manager.countFood());
-
   }
 
   @Test
@@ -287,7 +265,19 @@ public class ManagerTest {
     manager.addAnimalToEnclosure(unicorn, enclosure);
     manager.addAnimalToEnclosure(unicorn2, enclosure);
     int numberSick = manager.checkForSickAnimals(enclosure);
-    assertEquals(2, numberSick);
+    assertEquals(2, numberSick);  
+  }
+
+  @Test
+  public void canRemoveSickAnimals(){
+    manager.addAnimal(unicornSick);
+    manager.addAnimal(unicorn);
+    manager.getEnclosure(enclosure);
+    manager.addAnimalToEnclosure(unicornSick, enclosure);
+    manager.addAnimalToEnclosure(unicorn, enclosure);
+    manager.removeSickAnimals(enclosure);
+    assertEquals(1, enclosure.countAnimals());
+    assertEquals(1, manager.countSickAnimals());
   }
   
 }

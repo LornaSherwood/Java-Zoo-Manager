@@ -4,12 +4,14 @@ import java.util.*;
 
 public class Manager{
   private ArrayList<Livable> animals;
+  private ArrayList<Livable> sickAnimals;// add sick animals array
   private ArrayList<Edible> foods;
   private ArrayList<Exhibitable> enclosures;
   private Random randomGenerator;
 
   public Manager(){
     animals = new ArrayList<Livable>();
+    sickAnimals = new ArrayList<Livable>();
     foods = new ArrayList<Edible>();
     enclosures = new ArrayList<Exhibitable>();
     this.randomGenerator = new Random();
@@ -24,6 +26,10 @@ public class Manager{
 
   public int countAnimals(){
     return animals.size();
+  }
+
+  public int countSickAnimals(){
+    return sickAnimals.size();
   }
 
   public void addAnimal(Livable animal){
@@ -117,5 +123,19 @@ public class Manager{
     return sickAnimals;
   }
 
-  
+  public void removeSickAnimals(Exhibitable enclosure){
+    for(Livable animal : enclosure.getAnimals()){
+      if (animal.getHealthStatus() == HealthStatus.SICK){
+        sickAnimals.add(animal);
+      }
+    }
+    for (Livable sickAnimal : sickAnimals){
+      enclosure.getAnimals().remove(sickAnimal);
+    }
+  }
+ 
 }
+
+
+
+
