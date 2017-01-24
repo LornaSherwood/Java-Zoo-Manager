@@ -279,5 +279,17 @@ public class ManagerTest {
     assertEquals(1, enclosure.countAnimals());
     assertEquals(1, manager.countSickAnimals());
   }
+
+  @Test
+  public void canShowAnimalRecovered(){
+    manager.addAnimal(unicornSick);
+    manager.getEnclosure(enclosure);
+    manager.addAnimalToEnclosure(unicornSick, enclosure);
+    manager.removeSickAnimals(enclosure);
+    manager.showAnimalRecovered(unicornSick);
+    assertEquals(1, manager.countAnimals());
+    assertEquals(0, manager.countSickAnimals());
+
+  }
   
 }

@@ -13,6 +13,7 @@ public interface Livable {
   int chanceOfGettingSick();
   void getSick();
   HealthStatus getHealthStatus();
+  void setHealthStatus(HealthStatus healthStatus);
 
 
 }

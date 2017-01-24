@@ -19,6 +19,7 @@ public class Manager{
 
   public Manager(Random randomGenerator){
     animals = new ArrayList<Livable>();
+    sickAnimals = new ArrayList<Livable>();
     foods = new ArrayList<Edible>();
     enclosures = new ArrayList<Exhibitable>();
     this.randomGenerator = randomGenerator;
@@ -133,8 +134,22 @@ public class Manager{
       enclosure.getAnimals().remove(sickAnimal);
     }
   }
- 
+
+  public void showAnimalRecovered(Livable animal){
+    if (sickAnimals.contains(animal)){
+      int position = sickAnimals.indexOf(animal);
+      Livable recoveredAnimal = sickAnimals.remove(position);
+      recoveredAnimal.setHealthStatus(HealthStatus.HEALTHY);
+      animals.add(recoveredAnimal);
+    }
+  }
+
 }
+
+
+
+
+
 
 
 
