@@ -4,16 +4,12 @@ import zoo_manager.*;
 import behaviours.*;
 import java.util.*;
 
-
-
 public class EnclosureTest {
   Enclosure enclosure;
   Enclosure enclosure2;
   Unicorn unicorn;
   Unicorn unicorn2;
   
-
-
   @Before
   public void before(){
     enclosure = new Enclosure("Soaring Heights", EnclosureType.AERIAL, 100);

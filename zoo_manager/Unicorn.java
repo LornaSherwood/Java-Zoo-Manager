@@ -16,8 +16,4 @@ public class Unicorn extends Animal implements Livable{
     return "Trots gracefully across the ground";
   }
 
-
-
-
-
 }

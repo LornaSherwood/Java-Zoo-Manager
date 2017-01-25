@@ -19,6 +19,4 @@ public class Food implements Edible{
     return this.diet;
   }
 
-
-
 }

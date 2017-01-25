@@ -6,9 +6,7 @@ public class Enclosure implements Exhibitable{
   private String name;
   private EnclosureType environment;
   private int maxSpaceValue;
-
   private ArrayList<Livable> animals;
-
 
   public Enclosure(String name, EnclosureType environment, int maxSpaceValue){
     this.name = name;

@@ -88,19 +88,16 @@ public abstract class Animal {
       return false;
   }
 
-  public int chanceOfGettingSick(){ //public because abstract class, needed in subclass
-    int number = randomGenerator.nextInt(10) + 1;
-    return number;
-  }
-
   public void getSick(){
-    int number = chanceOfGettingSick();
+    int number = randomGenerator.nextInt(10) + 1;
     if (number == 9){
       setHealthStatus(HealthStatus.SICK);
     }   
   }
 
-
+  public void sleep(){
+    foodEaten.clear();
+  }
 
 }
 

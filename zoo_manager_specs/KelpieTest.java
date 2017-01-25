@@ -3,7 +3,6 @@ import org.junit.*;
 import zoo_manager.*;
 import java.util.*;
 
-
 public class KelpieTest {
   Kelpie kelpie;
 
@@ -19,7 +18,7 @@ public class KelpieTest {
 
   @Test
   public void canCatchPrey(){
-    assertEquals("Pulls its prey into the water to drown", kelpie.catchPrey());
+    assertEquals("Pulls its prey into the watery depths", kelpie.catchPrey());
   }
 
 }

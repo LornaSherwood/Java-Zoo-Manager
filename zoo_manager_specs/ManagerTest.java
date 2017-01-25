@@ -48,8 +48,8 @@ public class ManagerTest {
   }
 
   @Test
-  public void canAddAnimal(){
-    manager.addAnimal(unicorn);
+  public void canGetAnimal(){
+    manager.getAnimal(unicorn);
     assertEquals(1, manager.countAnimals());
   }
 
@@ -83,52 +83,87 @@ public class ManagerTest {
   }
 
   @Test
-  public void canAddAnimaltoRightEnclosureUnicorn(){
-    manager.addAnimal(unicorn);
+  public void canAddUnicorntoRightEnclosure(){
+    manager.getAnimal(unicorn);
     manager.getEnclosure(enclosure);
     manager.addAnimalToEnclosure(unicorn, enclosure);
-    assertEquals(0, manager.countAnimals());
     assertEquals(1, enclosure.countAnimals());
   }
 
+  @Test
+  public void canAddKelpietoRightEnclosure(){
+    manager.getAnimal(kelpie);
+    manager.getEnclosure(enclosure5);
+    manager.addAnimalToEnclosure(kelpie, enclosure5);
+    assertEquals(1, enclosure5.countAnimals());
+  }
 
-  public void canAddAnimaltoRightEnclosureMessage(){
-    manager.addAnimal(unicorn);
+  @Test
+  public void addingUnicorntoRightEnclosureRemovesFromManager(){
+    manager.getAnimal(unicorn);
+    manager.getEnclosure(enclosure);
+    manager.addAnimalToEnclosure(unicorn, enclosure);
+    assertEquals(0, manager.countAnimals());
+  }
+
+  @Test
+  public void addingKelpietoRightEnclosureRemovesFromManager(){
+    manager.getAnimal(kelpie);
+    manager.getEnclosure(enclosure5);
+    manager.addAnimalToEnclosure(kelpie, enclosure5);
+    assertEquals(0, manager.countAnimals());
+  }
+
+  public void canAddUnicorntoRightEnclosureMessage(){
+    manager.getAnimal(unicorn);
     manager.getEnclosure(enclosure);
     String message = manager.addAnimalToEnclosure(unicorn, enclosure);
     assertEquals("Pointy has been added", message);
   }
 
+  @Test
+  public void canAddKelpietoRightEnclosureMessage(){
+    manager.getAnimal(kelpie);
+    manager.getEnclosure(enclosure5);
+    String message = manager.addAnimalToEnclosure(kelpie, enclosure5);
+    assertEquals("Vaila has been added", message);
+  }
+
   @Test 
   public void cannotAddAnimalToWrongEnclosureUnicorn(){
-    manager.addAnimal(unicorn);
+    manager.getAnimal(unicorn);
     manager.getEnclosure(enclosure2);
     manager.addAnimalToEnclosure(unicorn, enclosure2);
-    assertEquals(1, manager.countAnimals());
     assertEquals(0, enclosure2.countAnimals());
   }
 
-  @Test
-  public void canAddAnimaltoRightEnclosureKelpie(){
-    manager.addAnimal(kelpie);
-    manager.getEnclosure(enclosure5);
-    manager.addAnimalToEnclosure(kelpie, enclosure5);
-    assertEquals(0, manager.countAnimals());
-    assertEquals(1, enclosure5.countAnimals());
+  @Test 
+  public void cannotAddAnimalToWrongEnclosureUnicornStaysWithManager(){
+    manager.getAnimal(unicorn);
+    manager.getEnclosure(enclosure2);
+    manager.addAnimalToEnclosure(unicorn, enclosure2);
+    assertEquals(1, manager.countAnimals());
   }
 
   @Test 
   public void cannotAddAnimalToWrongEnclosureKelpie(){
-    manager.addAnimal(kelpie);
+    manager.getAnimal(kelpie);
+    manager.getEnclosure(enclosure2);
+    manager.addAnimalToEnclosure(kelpie, enclosure2);
+    assertEquals(0, enclosure2.countAnimals());
+  }
+
+  @Test 
+  public void cannotAddAnimalToWrongEnclosureKelpieStaysWithManager(){
+    manager.getAnimal(kelpie);
     manager.getEnclosure(enclosure2);
     manager.addAnimalToEnclosure(kelpie, enclosure2);
     assertEquals(1, manager.countAnimals());
-    assertEquals(0, enclosure2.countAnimals());
   }
 
   @Test
   public void cannotAddAnimalToWrongEnclosureMessage(){
-    manager.addAnimal(unicorn);
+    manager.getAnimal(unicorn);
     manager.getEnclosure(enclosure2);
     String message = manager.addAnimalToEnclosure(unicorn, enclosure2);
     assertEquals("Pointy is not suited to that enclosure", message);
@@ -136,7 +171,7 @@ public class ManagerTest {
 
   @Test
   public void cannotAddAnimalToEnclosureIfFull(){
-    manager.addAnimal(unicorn);
+    manager.getAnimal(unicorn);
     manager.getEnclosure(enclosure3);
     String message = manager.addAnimalToEnclosure(unicorn, enclosure3);
     assertEquals("There is not enough space to add Pointy", message);
@@ -144,7 +179,7 @@ public class ManagerTest {
 
   @Test
   public void canRemoveAnimalFromEnclosure(){
-    manager.addAnimal(unicorn);
+    manager.getAnimal(unicorn);
     manager.getEnclosure(enclosure);
     manager.addAnimalToEnclosure(unicorn, enclosure);
     manager.removeAnimalFromEnclosure(unicorn, enclosure);
@@ -153,8 +188,17 @@ public class ManagerTest {
   }
 
   @Test
-  public void canRemoveAnimalFromEnclosureMessage(){
-    manager.addAnimal(unicorn);
+  public void removingAnimalFromEnclosureMovesToManager(){
+    manager.getAnimal(unicorn);
+    manager.getEnclosure(enclosure);
+    manager.addAnimalToEnclosure(unicorn, enclosure);
+    manager.removeAnimalFromEnclosure(unicorn, enclosure);
+    assertEquals(1, manager.countAnimals());
+  }
+
+  @Test
+  public void removingAnimalFromEnclosureReturnsMessage(){
+    manager.getAnimal(unicorn);
     manager.getEnclosure(enclosure);
     manager.addAnimalToEnclosure(unicorn, enclosure);
     String message = manager.removeAnimalFromEnclosure(unicorn, enclosure);
@@ -163,8 +207,8 @@ public class ManagerTest {
 
   @Test
   public void cannotRemoveAnimalIfNotInEnclosure(){
-    manager.addAnimal(unicorn);
-    manager.addAnimal(unicorn2);
+    manager.getAnimal(unicorn);
+    manager.getAnimal(unicorn2);
     manager.getEnclosure(enclosure);
     manager.getEnclosure(enclosure4);
     manager.addAnimalToEnclosure(unicorn, enclosure);
@@ -176,20 +220,20 @@ public class ManagerTest {
   }
 
   @Test 
-    public void cannotRemoveAnimalIfNotInEnclosureMessage(){
-      manager.addAnimal(unicorn);
-      manager.addAnimal(unicorn2);
-      manager.getEnclosure(enclosure);
-      manager.getEnclosure(enclosure4);
-      manager.addAnimalToEnclosure(unicorn, enclosure);
-      manager.addAnimalToEnclosure(unicorn2, enclosure4);
+  public void cannotRemoveAnimalIfNotInEnclosureMessage(){
+    manager.getAnimal(unicorn);
+    manager.getAnimal(unicorn2);
+    manager.getEnclosure(enclosure);
+    manager.getEnclosure(enclosure4);
+    manager.addAnimalToEnclosure(unicorn, enclosure);
+    manager.addAnimalToEnclosure(unicorn2, enclosure4);
     String message = manager.removeAnimalFromEnclosure(unicorn, enclosure4);
     assertEquals("Pointy is not in that enclosure", message);
   }
 
   @Test
   public void canFeedAnimalWithManager(){
-    manager.addAnimal(unicorn);
+    manager.getAnimal(unicorn);
     manager.getFood(forbs);
     manager.feedAnimal(unicorn);
     assertEquals(1, unicorn.countFood());
@@ -197,7 +241,7 @@ public class ManagerTest {
 
   @Test
   public void cannotFeedAnimalIfNoSuitableFood(){
-    manager.addAnimal(unicorn);
+    manager.getAnimal(unicorn);
     manager.getFood(fairies);
     manager.feedAnimal(unicorn);
     assertEquals(0, unicorn.countFood());
@@ -205,7 +249,7 @@ public class ManagerTest {
 
   @Test
   public void canFeedAnimalInEnclosureOneItem(){
-    manager.addAnimal(unicorn);
+    manager.getAnimal(unicorn);
     manager.getEnclosure(enclosure);
     manager.addAnimalToEnclosure(unicorn, enclosure);
     manager.getFood(forbs);
@@ -216,8 +260,8 @@ public class ManagerTest {
 
   @Test
   public void canFeedAllAnimalsInEnclosureVegetarian(){
-    manager.addAnimal(unicorn);
-    manager.addAnimal(unicorn2);
+    manager.getAnimal(unicorn);
+    manager.getAnimal(unicorn2);
     manager.getEnclosure(enclosure);
     manager.addAnimalToEnclosure(unicorn, enclosure);
     manager.addAnimalToEnclosure(unicorn2, enclosure);
@@ -226,29 +270,55 @@ public class ManagerTest {
     manager.feedAllAnimalsInEnclosure(enclosure);
     assertEquals(1, unicorn.countFood());
     assertEquals(1, unicorn2.countFood());
+  }
+
+  @Test
+  public void feedingAllAnimalsInEnclosureRemovesFoodFromManager(){
+    manager.getAnimal(unicorn);
+    manager.getAnimal(unicorn2);
+    manager.getEnclosure(enclosure);
+    manager.addAnimalToEnclosure(unicorn, enclosure);
+    manager.addAnimalToEnclosure(unicorn2, enclosure);
+    manager.getFood(forbs);
+    manager.getFood(forbs);
+    manager.feedAllAnimalsInEnclosure(enclosure);
     assertEquals(0, manager.countFood());
   }
 
   @Test
   public void canFeedAllAnimalsInEnclosureOmnivore(){
-    manager.addAnimal(kelpie);
-    manager.addAnimal(kelpie2);
+    manager.getAnimal(kelpie);
+    manager.getAnimal(kelpie2);
     manager.getEnclosure(enclosure5);
     manager.addAnimalToEnclosure(kelpie, enclosure5);
     manager.addAnimalToEnclosure(kelpie2, enclosure5);
+    manager.getFood(forbs);
     manager.getFood(nutRoast);
     manager.getFood(fairies);
     manager.feedAllAnimalsInEnclosure(enclosure5);
     assertEquals(1, kelpie.countFood());
     assertEquals(1, kelpie2.countFood());
-    assertEquals(0, manager.countFood());
+  }
+
+  @Test
+  public void feedAllAnimalsInEnclosureManagerFeedDepleted(){
+    manager.getAnimal(kelpie);
+    manager.getAnimal(kelpie2);
+    manager.getEnclosure(enclosure5);
+    manager.addAnimalToEnclosure(kelpie, enclosure5);
+    manager.addAnimalToEnclosure(kelpie2, enclosure5);
+    manager.getFood(forbs);
+    manager.getFood(nutRoast);
+    manager.getFood(fairies);
+    manager.feedAllAnimalsInEnclosure(enclosure5);
+    assertEquals(1, manager.countFood());
   }
 
   @Test
   public void canCheckForSickAnimalsHealthy(){
     when(stubRandom.nextInt(10)).thenReturn(1); // mockito
-    manager.addAnimal(unicorn);
-    manager.addAnimal(unicorn2);
+    manager.getAnimal(unicorn);
+    manager.getAnimal(unicorn2);
     manager.getEnclosure(enclosure);
     manager.addAnimalToEnclosure(unicorn, enclosure);
     manager.addAnimalToEnclosure(unicorn2, enclosure);
@@ -259,8 +329,8 @@ public class ManagerTest {
   @Test
   public void canCheckForSickAnimalsSick(){
     when(stubRandom.nextInt(10)).thenReturn(8); // mockito
-    manager.addAnimal(unicorn);
-    manager.addAnimal(unicorn2);
+    manager.getAnimal(unicorn);
+    manager.getAnimal(unicorn2);
     manager.getEnclosure(enclosure);
     manager.addAnimalToEnclosure(unicorn, enclosure);
     manager.addAnimalToEnclosure(unicorn2, enclosure);
@@ -269,9 +339,9 @@ public class ManagerTest {
   }
 
   @Test
-  public void canRemoveSickAnimals(){
-    manager.addAnimal(unicornSick);
-    manager.addAnimal(unicorn);
+  public void canRemoveSickAnimalsFromEnclosure(){
+    manager.getAnimal(unicornSick);
+    manager.getAnimal(unicorn);
     manager.getEnclosure(enclosure);
     manager.addAnimalToEnclosure(unicornSick, enclosure);
     manager.addAnimalToEnclosure(unicorn, enclosure);
@@ -281,15 +351,34 @@ public class ManagerTest {
   }
 
   @Test
-  public void canShowAnimalRecovered(){
-    manager.addAnimal(unicornSick);
+  public void removedSickAnimalsGoToManager(){
+    manager.getAnimal(unicornSick);
+    manager.getAnimal(unicorn);
+    manager.getEnclosure(enclosure);
+    manager.addAnimalToEnclosure(unicornSick, enclosure);
+    manager.addAnimalToEnclosure(unicorn, enclosure);
+    manager.removeSickAnimals(enclosure);
+    assertEquals(1, manager.countSickAnimals());
+  }
+
+  @Test
+  public void showAnimalRecoveredRemovesFromSick(){
+    manager.getAnimal(unicornSick);
+    manager.getEnclosure(enclosure);
+    manager.addAnimalToEnclosure(unicornSick, enclosure);
+    manager.removeSickAnimals(enclosure);
+    manager.showAnimalRecovered(unicornSick);
+    assertEquals(0, manager.countSickAnimals());
+  }
+
+  @Test
+  public void showAnimalRecoveredAddsToHealthy(){
+    manager.getAnimal(unicornSick);
     manager.getEnclosure(enclosure);
     manager.addAnimalToEnclosure(unicornSick, enclosure);
     manager.removeSickAnimals(enclosure);
     manager.showAnimalRecovered(unicornSick);
     assertEquals(1, manager.countAnimals());
-    assertEquals(0, manager.countSickAnimals());
-
   }
   
 }

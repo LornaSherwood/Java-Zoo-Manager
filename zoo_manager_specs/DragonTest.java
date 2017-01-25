@@ -3,7 +3,6 @@ import org.junit.*;
 import zoo_manager.*;
 import java.util.*;
 
-
 public class DragonTest {
   Dragon dragon;
 

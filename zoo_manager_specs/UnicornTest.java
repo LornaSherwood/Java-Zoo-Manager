@@ -5,18 +5,18 @@ import java.util.*;
 import org.mockito.*;
 import static org.mockito.Mockito.*;
 
-
 public class UnicornTest {
   Unicorn unicorn;
-  Food food;
+  Food forbs;
+  Food fairies;
   Random stubRandom;
 
   @Before
   public void before(){
     stubRandom = mock(Random.class);
     unicorn = new Unicorn("Pointy", Gender.F, 5, 1, Diet.VEGETARIAN, EnclosureType.FOREST, HealthStatus.HEALTHY, stubRandom); 
-    food = new Food("forbs", Diet.VEGETARIAN);
-    
+    forbs = new Food("forbs", Diet.VEGETARIAN);
+    fairies = new Food("fairies", Diet.CARNIVORE);
   }
 
   @Test
@@ -61,26 +61,28 @@ public class UnicornTest {
   }
 
   @Test
-  public void canRun() {
-    assertEquals("Trots gracefully across the ground", unicorn.run());
-  }
-
-  @Test
   public void foodEatenStartsEmpty(){
     assertEquals(0, unicorn.countFood());
   }
 
   @Test 
   public void canEatFood(){
-    unicorn.eatFood(food);
+    unicorn.eatFood(forbs);
     assertEquals(1, unicorn.countFood());
   }
 
   @Test
   public void canEatFoodIfMatchesDiet(){
-    boolean eatFood = unicorn.eatFoodIfMatchesDiet(food);
+    boolean eatFood = unicorn.eatFoodIfMatchesDiet(forbs);
     assertEquals(true, eatFood);
     assertEquals(1, unicorn.countFood());
+  }
+
+  @Test
+  public void cannotEatFoodIfDoesNotMatchDiet(){
+    boolean eatFood = unicorn.eatFoodIfMatchesDiet(fairies);
+    assertEquals(false, eatFood);
+    assertEquals(0, unicorn.countFood());
   }
 
   @Test
@@ -95,7 +97,18 @@ public class UnicornTest {
     when(stubRandom.nextInt(10)).thenReturn(8); // mockito
     unicorn.getSick();
     assertEquals(HealthStatus.SICK, unicorn.getHealthStatus());
+  }
 
+  @Test
+  public void canRun() {
+    assertEquals("Trots gracefully across the ground", unicorn.run());
+  }
+
+  @Test
+  public void canSleep() {
+    unicorn.eatFood(forbs);
+    unicorn.sleep();
+    assertEquals(0, unicorn.countFood());
   }
   
 }

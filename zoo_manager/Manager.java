@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Manager{
   private ArrayList<Livable> animals;
-  private ArrayList<Livable> sickAnimals;// add sick animals array
+  private ArrayList<Livable> sickAnimals;
   private ArrayList<Edible> foods;
   private ArrayList<Exhibitable> enclosures;
   private Random randomGenerator;
@@ -33,7 +33,7 @@ public class Manager{
     return sickAnimals.size();
   }
 
-  public void addAnimal(Livable animal){
+  public void getAnimal(Livable animal){
     animals.add(animal);
   }
 
@@ -62,10 +62,10 @@ public class Manager{
     EnclosureType enclosureEnvironment = enclosure.getEnvironment();
     if (animal.getSpaceValue() <= enclosure.getSpareCapacity()){
       if (animalEnclosure == enclosureEnvironment){
-          int position = animals.indexOf(animal);
-          Livable animalToAdd = animals.remove(position);
-          enclosure.addAnimal(animalToAdd);
-          return animalToAdd.getName() + "has been added";
+        int position = animals.indexOf(animal);
+        Livable animalToAdd = animals.remove(position);
+        enclosure.addAnimal(animalToAdd);
+        return animalToAdd.getName() + " has been added";
       }
       else
         return animal.getName() + " is not suited to that enclosure";
@@ -92,11 +92,11 @@ public class Manager{
           removeFood(food); //remove food from manager
           return animal.getName() + "has been fed";
         }
+      }
+      return "There is no suitable food for " + animal.getName();
     }
-    return "There is no suitable food for " + animal.getName();
-  }
 
-  public ArrayList<String> feedAllAnimalsInEnclosure(Exhibitable enclosure){
+    public ArrayList<String> feedAllAnimalsInEnclosure(Exhibitable enclosure){
     ArrayList<String> results = new ArrayList<String>(); //create array list
       for (Livable animal : enclosure.getAnimals()){ //for each animal in the enclosure
         String feedMessage = feedAnimal(animal); //get result of feeding
@@ -104,47 +104,47 @@ public class Manager{
         // remove from manager array
       }
       return results;
-  }
-
-  public void getEnclosureFeedingResults(Exhibitable enclosure){
-    ArrayList<String> results = feedAllAnimalsInEnclosure(enclosure);
-    for (String message : results){
-      System.out.println(message); 
     }
-  }
 
-  public int checkForSickAnimals(Exhibitable enclosure){
-    int sickAnimals = 0;
-    for (Livable animal : enclosure.getAnimals()){
-      animal.getSick();
-      if (animal.getHealthStatus() == HealthStatus.SICK){
-        sickAnimals += 1;
+    public void getEnclosureFeedingResults(Exhibitable enclosure){
+      ArrayList<String> results = feedAllAnimalsInEnclosure(enclosure);
+      for (String message : results){
+        System.out.println(message); 
       }
     }
-    return sickAnimals;
-  }
 
-  public void removeSickAnimals(Exhibitable enclosure){
-    for(Livable animal : enclosure.getAnimals()){
-      if (animal.getHealthStatus() == HealthStatus.SICK){
-        sickAnimals.add(animal);
+    public int checkForSickAnimals(Exhibitable enclosure){
+      int sickAnimals = 0;
+      for (Livable animal : enclosure.getAnimals()){
+        animal.getSick();
+        if (animal.getHealthStatus() == HealthStatus.SICK){
+          sickAnimals += 1;
+        }
+      }
+      return sickAnimals;
+    }
+
+    public void removeSickAnimals(Exhibitable enclosure){
+      for(Livable animal : enclosure.getAnimals()){
+        if (animal.getHealthStatus() == HealthStatus.SICK){
+          sickAnimals.add(animal);
+        }
+      }
+      for (Livable sickAnimal : sickAnimals){
+        enclosure.getAnimals().remove(sickAnimal);
       }
     }
-    for (Livable sickAnimal : sickAnimals){
-      enclosure.getAnimals().remove(sickAnimal);
-    }
-  }
 
-  public void showAnimalRecovered(Livable animal){
-    if (sickAnimals.contains(animal)){
-      int position = sickAnimals.indexOf(animal);
-      Livable recoveredAnimal = sickAnimals.remove(position);
-      recoveredAnimal.setHealthStatus(HealthStatus.HEALTHY);
-      animals.add(recoveredAnimal);
+    public void showAnimalRecovered(Livable animal){
+      if (sickAnimals.contains(animal)){
+        int position = sickAnimals.indexOf(animal);
+        Livable recoveredAnimal = sickAnimals.remove(position);
+        recoveredAnimal.setHealthStatus(HealthStatus.HEALTHY);
+        animals.add(recoveredAnimal);
+      }
     }
-  }
 
-}
+  }
 
 
 

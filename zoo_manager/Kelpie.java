@@ -14,7 +14,7 @@ public class Kelpie extends Animal implements Livable{
   }
 
   public String catchPrey(){
-    return "Pulls its prey into the water to drown";
+    return "Pulls its prey into the watery depths";
   }
 
 }

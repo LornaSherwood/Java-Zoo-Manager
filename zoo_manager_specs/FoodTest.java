@@ -2,11 +2,8 @@ import static org.junit.Assert.*;
 import org.junit.*;
 import zoo_manager.*;
 
-
-
 public class FoodTest {
   Food food;
-
 
   @Before
   public void before(){
