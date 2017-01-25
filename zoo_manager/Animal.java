@@ -2,7 +2,6 @@ package zoo_manager;
 import behaviours.*;
 import java.util.*;
 
-
 public abstract class Animal {
 
   private String name;
