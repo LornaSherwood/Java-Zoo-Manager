@@ -86,9 +86,8 @@ public class Manager{
   }
 
   public String feedAnimal(Livable animal){
-    //Diet diet = animal.getDiet(); //get diet of animal
     for (Edible food : foods){
-        if (animal.eatFoodIfMatchesDiet(food) == true){ //animal checks right diet and eat it
+        if (animal.eatFoodIfMatchesDiet(food) == true){ //animal checks right diet and eat it (see Animal)
           removeFood(food); //remove food from manager
           return animal.getName() + "has been fed";
         }
@@ -119,7 +118,7 @@ public class Manager{
         animal.getSick();
         if (animal.getHealthStatus() == HealthStatus.SICK){
           sickAnimals += 1;
-        }
+        } 
       }
       return sickAnimals;
     }
@@ -143,9 +142,13 @@ public class Manager{
         animals.add(recoveredAnimal);
       }
     }
+  
+
+    
 
   }
 
+ 
 
 
 

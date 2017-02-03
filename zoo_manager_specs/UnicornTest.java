@@ -9,11 +9,11 @@ public class UnicornTest {
   Unicorn unicorn;
   Food forbs;
   Food fairies;
-  Random stubRandom;
+  Random stubRandom;  //mockito
 
   @Before
   public void before(){
-    stubRandom = mock(Random.class);
+    stubRandom = mock(Random.class); // mockito
     unicorn = new Unicorn("Pointy", Gender.F, 5, 1, Diet.VEGETARIAN, EnclosureType.FOREST, HealthStatus.HEALTHY, stubRandom); 
     forbs = new Food("forbs", Diet.VEGETARIAN);
     fairies = new Food("fairies", Diet.CARNIVORE);
@@ -86,6 +86,18 @@ public class UnicornTest {
   }
 
   @Test
+  public void canRun() {
+    assertEquals("Trots gracefully across the ground", unicorn.run());
+  }
+
+  @Test
+  public void canSleep() {
+    unicorn.eatFood(forbs);
+    unicorn.sleep();
+    assertEquals(0, unicorn.countFood());
+  }
+
+  @Test
   public void canNotGetSick(){
     when(stubRandom.nextInt(10)).thenReturn(1); // mockito
     unicorn.getSick();
@@ -97,18 +109,6 @@ public class UnicornTest {
     when(stubRandom.nextInt(10)).thenReturn(8); // mockito
     unicorn.getSick();
     assertEquals(HealthStatus.SICK, unicorn.getHealthStatus());
-  }
-
-  @Test
-  public void canRun() {
-    assertEquals("Trots gracefully across the ground", unicorn.run());
-  }
-
-  @Test
-  public void canSleep() {
-    unicorn.eatFood(forbs);
-    unicorn.sleep();
-    assertEquals(0, unicorn.countFood());
   }
   
 }

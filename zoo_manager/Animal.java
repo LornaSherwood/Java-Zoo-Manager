@@ -2,7 +2,7 @@ package zoo_manager;
 import behaviours.*;
 import java.util.*;
 
-public abstract class Animal {
+public abstract class Animal{
 
   private String name;
   private Gender gender;
@@ -23,7 +23,6 @@ public abstract class Animal {
     this.enclosureType = enclosureType;
     this.healthStatus = healthStatus;
     this.foodEaten = new ArrayList<Edible>();
-    this.randomGenerator = new Random();
   }
 
   public Animal(String name, Gender gender, int spaceValue, int offspringValue, Diet diet, EnclosureType enclosureType, HealthStatus healthStatus, Random randomGenerator){
@@ -87,6 +86,10 @@ public abstract class Animal {
       return false;
   }
 
+  public void sleep(){
+    foodEaten.clear();
+  }
+
   public void getSick(){
     int number = randomGenerator.nextInt(10) + 1;
     if (number == 9){
@@ -94,9 +97,7 @@ public abstract class Animal {
     }   
   }
 
-  public void sleep(){
-    foodEaten.clear();
-  }
+
 
 }
 

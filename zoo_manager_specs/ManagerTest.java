@@ -12,6 +12,7 @@ public class ManagerTest {
   Unicorn unicornSick;
   Kelpie kelpie;
   Kelpie kelpie2;
+  Kelpie kelpieSick;
   Food forbs;
   Food nutRoast;
   Food fairies;
@@ -20,6 +21,7 @@ public class ManagerTest {
   Enclosure enclosure3;
   Enclosure enclosure4;
   Enclosure enclosure5;
+
   Random stubRandom;
 
   @Before
@@ -32,6 +34,7 @@ public class ManagerTest {
     unicornSick = new Unicorn("Blunty", Gender.M, 6, 0, Diet.VEGETARIAN, EnclosureType.FOREST, HealthStatus.SICK);
     kelpie = new Kelpie("Vaila", Gender.F, 10, 2, Diet.OMNIVORE, EnclosureType.WATER, HealthStatus.HEALTHY);
     kelpie2 = new Kelpie("Veila", Gender.M, 10, 0, Diet.OMNIVORE, EnclosureType.WATER, HealthStatus.HEALTHY);
+    kelpieSick = new Kelpie("Veila", Gender.M, 10, 0, Diet.OMNIVORE, EnclosureType.WATER, HealthStatus.SICK);
     forbs = new Food("forbs", Diet.VEGETARIAN);
     nutRoast = new Food("nutRoast", Diet.VEGETARIAN);
     fairies = new Food("fairies", Diet.CARNIVORE);
@@ -380,5 +383,6 @@ public class ManagerTest {
     manager.showAnimalRecovered(unicornSick);
     assertEquals(1, manager.countAnimals());
   }
+
   
 }

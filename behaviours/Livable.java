@@ -14,5 +14,6 @@ public interface Livable {
   HealthStatus getHealthStatus();
   void setHealthStatus(HealthStatus healthStatus);
   void sleep();
+  
 
 }
